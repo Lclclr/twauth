@@ -3,8 +3,12 @@
 import thirdwebIcon from "@public/thirdweb.svg";
 import Image from "next/image";
 import { LoginButton } from "./components/LoginButton";
+import { useActiveAccount } from "thirdweb/react";
+import Link from "next/link";
 
 export default function Home() {
+  const account = useActiveAccount();
+  
   return (
     <main className="p-4 pb-10 min-h-[100vh] flex items-center justify-center container max-w-screen-lg mx-auto">
       <div className="py-20">
@@ -14,6 +18,16 @@ export default function Home() {
           <LoginButton />
         </div>
 
+        {account && (
+          <div className="text-center"> 
+            <p>You are logged in</p> 
+            <Link href="/gated-content">
+              <button className="mt-4 bg-zinc-100 text-black px-4 py-2 rounded-md">
+                Go to gated content
+              </button>
+            </Link>
+          </div>
+    )}
       </div>
     </main>
   );
